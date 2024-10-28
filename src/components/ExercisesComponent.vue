@@ -7,6 +7,7 @@ import { modalController } from '@ionic/vue';
 import { useExercisesStore } from '@/stores/exercises'
 import {add, arrowForwardCircleOutline, arrowForwardOutline} from 'ionicons/icons';
 import Details from "@/modals/Details.vue";
+import * as sea from "node:sea";
 
 const searchQuery = ref('');
 const filterQuery = ref('');
@@ -18,17 +19,23 @@ const filteredByName = computed(() => {
         return exercises.value.filter(item => {
             const nameMatches = item.name.toLowerCase().includes(searchQuery.value.toLowerCase())
             const muscleMatches = filterQuery.value === '' || item.muscle.some(muscle =>
-                filterQuery.value.includes(muscle.toLowerCase())
+                filterQuery.value.includes(muscle)
             );
             return nameMatches && muscleMatches;
         }).sort((a, b) => a.name.localeCompare(b.name));
     }
 });
 
+const availableMuscles = computed(() => {
+    return Array.from(new Set(exercises.value.flatMap(exercise => exercise.muscle)));
+})
+
+console.log(availableMuscles);
+
 const openModal = async(item) => {
     const modal = await modalController.create({
         component: Update,
-        componentProps: { exercise: item, getExercises: getExercises }, // Pass a copy of the item to the modal
+        componentProps: { exercise: item, getExercises: getExercises },
     });
     await modal.present();
         
@@ -37,7 +44,7 @@ const openModal = async(item) => {
 const openDetails = async(name) => {
     const modal = await modalController.create({
         component: Details,
-        componentProps: { name: name}, // Pass a copy of the item to the modal
+        componentProps: { name: name},
     });
     await modal.present();
 
@@ -49,6 +56,8 @@ const getExercises = () => {
 
 const deleteExercise = (id) => {
     ExercisesStore.removeExercise(id)
+    searchQuery.value = ""
+    filterQuery.value = ""
     getExercises()
 }
 
@@ -67,13 +76,7 @@ onMounted(() => {
         <ion-searchbar placeholder="Search by name" v-model="searchQuery"></ion-searchbar>
         <ion-select justify="start" label="Filter by:" placeholder="Muscle" v-model="filterQuery" interface="popover">
             <ion-select-option value=""></ion-select-option>
-            <ion-select-option value="chest">Chest</ion-select-option>
-            <ion-select-option value="triceps">Triceps</ion-select-option>
-            <ion-select-option value="biceps">Biceps</ion-select-option>
-            <ion-select-option value="back">Back</ion-select-option>
-            <ion-select-option value="legs">Legs</ion-select-option>
-            <ion-select-option value="forearms">Forearms</ion-select-option>
-            <ion-select-option value="shoulders">Shoulders</ion-select-option>
+            <ion-select-option v-for="muscle in availableMuscles" :value="muscle">{{muscle}}</ion-select-option>
         </ion-select>
         <div class="card" v-for="exercise in filteredByName">
 

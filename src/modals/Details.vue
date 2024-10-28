@@ -44,7 +44,7 @@ const cancel = () => modalController.dismiss();
                             <ion-item v-for="(set, index) in program.sets">
                                 <ion-badge slot="start">{{index+1}}</ion-badge>
                                 <div class="set-details">
-                                    <ion-label>Reps : {{set.reps}}</ion-label>
+                                    <ion-label>Reps : {{set.reps}}</ion-label>&emsp;
                                     <ion-label>Weight : {{set.weight}}</ion-label>
                                 </div>
                             </ion-item>
