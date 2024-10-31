@@ -22,11 +22,10 @@ const cancel = () => modalController.dismiss();
 const confirm = async() => {
     const newProgram = {
         date: newDate.value,
-        exerciseName: newExerciseName.value, // Split by comma and trim spaces
-        sets: newSets.value, // Split by comma and trim spaces
+        exerciseName: newExerciseName.value,
+        sets: newSets.value,
     };
     ProgramStore.addProgram(newProgram)
-    //
     await modalController.dismiss()
     console.log(newProgram)
 };
@@ -48,8 +47,8 @@ const confirm = async() => {
         </ion-header>
         <ion-content class="ion-padding" id="add-content">
             <ion-datetime :value="newDate" v-model="newDate" presentation="date"></ion-datetime><br>
-            <ion-select fill="solid" justify="start" label="Choose Exercise:" placeholder="Exercise" v-model="newExerciseName" interface="popover">
-                <ion-select-option v-for="exercise in ExerciseStore.exercises" :value="exercise.name">{{exercise.name}}</ion-select-option>
+            <ion-select fill="solid" justify="start" label-placement="floating" label="Choose Exercise:" placeholder="Exercise" v-model="newExerciseName">
+                <ion-select-option v-for="exercise in ExerciseStore.exercises.sort((a, b) => (a.name > b.name) ? 1 : -1)"  :value="exercise.name">{{exercise.name}}</ion-select-option>
             </ion-select><br>
             <div class="card" v-for="(set, index) in newSets">
                 <ion-card>
@@ -75,16 +74,16 @@ const confirm = async() => {
 
 <style scoped>
 #add-modal {
-    --overflow: hidden; /* Prevent modal scrollbar */
+    --overflow: hidden;
 }
 
 #add-content {
-    max-height: 90%; /* Limit the height of the content */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 90%;
+    overflow-y: auto;
 }
 
 #add-content::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar */
+    display: none;
 }
 .add-button {
     display: flex;

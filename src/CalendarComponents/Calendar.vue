@@ -38,13 +38,13 @@ const prev = () => {
     <div>
         <ion-buttons class="header">
             <div class="view-buttons">
-                <ion-button  @click="changeView('week')">
+                <ion-button @click="changeView('week')">
                     <div class="view-button">
                         <ion-icon aria-hidden="true" :icon="calendarOutline" id="view-icon" />
                         <ion-label>Week View</ion-label>
                     </div>
                 </ion-button>
-                <ion-button  @click="changeView('day')">
+                <ion-button @click="changeView('day')">
                     <div class="view-button">
                         <ion-icon aria-hidden="true" :icon="calendarNumberOutline" id="view-icon" />
                         <ion-label>Day View</ion-label>

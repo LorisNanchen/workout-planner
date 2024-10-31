@@ -30,8 +30,6 @@ const availableMuscles = computed(() => {
     return Array.from(new Set(exercises.value.flatMap(exercise => exercise.muscle)));
 })
 
-console.log(availableMuscles);
-
 const openModal = async(item) => {
     const modal = await modalController.create({
         component: Update,

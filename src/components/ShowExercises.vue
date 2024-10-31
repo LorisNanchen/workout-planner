@@ -40,7 +40,7 @@ const matchingProgram = computed(() =>
 const openDetails = async(name) => {
     const modal = await modalController.create({
         component: Details,
-        componentProps: { name: name}, // Pass a copy of the item to the modal
+        componentProps: { name: name},
     });
     await modal.present();
 

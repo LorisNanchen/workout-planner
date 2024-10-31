@@ -3,6 +3,7 @@
 import {IonButton, IonButtons, IonContent, IonHeader, IonInput, IonModal, IonTitle, IonToolbar, IonToast} from "@ionic/vue";
 import {ref} from "vue";
 import { useExercisesStore } from '@/stores/exercises'
+import {warningOutline} from "ionicons/icons";
 
 const props = defineProps<{
     getExercises: () => void;
@@ -12,9 +13,9 @@ const ExercisesStore = useExercisesStore()
 const newName = ref('');
 const newMuscles = ref(['']);
 const newEquipment = ref(['']);
-
 const modal = ref();
 const isOpen = ref(false);
+
 const setOpen = (state: boolean) => {
     isOpen.value = state;
 };
@@ -34,8 +35,7 @@ const confirm = () => {
         ExercisesStore.addExercise(newExercise)
 
         props.getExercises()
-
-        // Clear input fields
+        
         newName.value = '';
         newMuscles.value = [''];
         newEquipment.value = [''];
@@ -44,8 +44,6 @@ const confirm = () => {
     } else {
         setOpen(true)
     }
-
-    
 };
 </script>
 
@@ -79,7 +77,7 @@ const confirm = () => {
             
         </ion-content>
     </ion-modal>
-    <ion-toast :is-open="isOpen" message="Values can not be null" :duration="5000" @didDismiss="setOpen(false)"></ion-toast>
+    <ion-toast :is-open="isOpen" message="Values can not be null" :duration="5000" @didDismiss="setOpen(false)" class="custom-toast" :icon="warningOutline" ></ion-toast>
 </template>
 
 <style scoped>
@@ -88,15 +86,22 @@ const confirm = () => {
     flex-direction: row;
 }
 #add-modal {
-    --overflow: hidden; /* Prevent modal scrollbar */
+    --overflow: hidden;
 }
 
 #add-content {
-    max-height: 90%; /* Limit the height of the content */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 90%;
+    overflow-y: auto;
 }
 
 #add-content::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar */
+    display: none;
 }
+
+ion-toast.custom-toast {
+    --background: #ff7373;
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    --color: #ffffff;
+}
+
 </style>

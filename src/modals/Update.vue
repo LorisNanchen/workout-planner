@@ -14,6 +14,7 @@ import {
 import {ref} from "vue";
 import { modalController } from '@ionic/vue';
 import { useExercisesStore } from '@/stores/exercises'
+import {warningOutline} from "ionicons/icons";
 
 const props = defineProps<{
     exercise: {
@@ -41,8 +42,8 @@ const confirm = async() => {
     if (newName.value != '' && newMuscles.value != [''] && newEquipment.value != [''] ) {
         const newExercise = {
             name: newName.value,
-            muscle: newMuscles.value, // Split by comma and trim spaces
-            equipment: newEquipment.value, // Split by comma and trim spaces
+            muscle: newMuscles.value,
+            equipment: newEquipment.value,
         };
         const tempExercises = ExercisesStore.exercises
         ExercisesStore.updateExercise(newExercise, tempExercises.findIndex(ex => ex.name === exercise.name))
@@ -85,7 +86,7 @@ const confirm = async() => {
 
         </ion-content>
     </ion-content>
-    <ion-toast :is-open="isOpen" message="Values can not be null" :duration="5000" @didDismiss="setOpen(false)"></ion-toast>
+    <ion-toast :is-open="isOpen" message="Values can not be null" :duration="5000" @didDismiss="setOpen(false)" class="custom-toast" :icon="warningOutline"></ion-toast>
 </template>
 
 <style scoped>
@@ -95,15 +96,20 @@ const confirm = async() => {
 }
 
 #add-modal {
-    --overflow: hidden; /* Prevent modal scrollbar */
+    --overflow: hidden;
 }
 
 #add-content {
-    max-height: 90%; /* Limit the height of the content */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 90%;
+    overflow-y: auto;
 }
 
 #add-content::-webkit-scrollbar {
-    display: none; /* Hide the scrollbar */
+    display: none;
+}
+ion-toast.custom-toast {
+    --background: #ff7373;
+    --box-shadow: 3px 3px 10px 0 rgba(0, 0, 0, 0.2);
+    --color: #ffffff;
 }
 </style>

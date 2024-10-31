@@ -25,7 +25,7 @@ const generateWeek = () => {
 const openModal = async(date) => {
     const modal = await modalController.create({
         component: Add,
-        componentProps: { date: date}, // Pass a copy of the item to the modal
+        componentProps: { date: date},
     });
     await modal.present();
 
