@@ -21,7 +21,11 @@ const routes = [
       {
         path: 'exercises',
         component: () => import('@/views/Exercises.vue'),
-      }
+      },
+      {
+        path: 'rest',
+        component: () => import('@/views/Rest.vue'),
+      },
     ]
   }
 ]

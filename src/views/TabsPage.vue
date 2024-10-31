@@ -12,6 +12,10 @@
               <ion-icon aria-hidden="true" :icon="ellipse" />
               <ion-label>Program</ion-label>
           </ion-tab-button>
+          <ion-tab-button tab="rest" href="/rest">
+              <ion-icon aria-hidden="true" :icon="ellipse" />
+              <ion-label>Rest</ion-label>
+          </ion-tab-button>
           
       </ion-tab-bar>
     </ion-tabs>

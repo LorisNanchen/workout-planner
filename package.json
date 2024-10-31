@@ -20,6 +20,7 @@
     "@capacitor/status-bar": "6.0.1",
     "@ionic/vue": "^8.0.0",
     "@ionic/vue-router": "^8.0.0",
+    "circle-progress.vue": "^3.3.0",
     "date-fns": "^4.1.0",
     "firebase": "^10.14.1",
     "ionicons": "^7.0.0",
